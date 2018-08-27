@@ -495,6 +495,42 @@
 
 	/**
 	 *
+	 * @function refreshDirtyItems()
+	 * @description Refreshed items marked as dirty via ajax
+	 * @since 1.0.0
+	 *
+	 * @param {string} dirtyItems - An array of dirty items
+	 *
+	 */
+	function refreshDirtyItems(dirtyItems) {
+
+		for(let i = 0; i < dirtyItems.length; i++) {
+
+			const dirtyItem = dirtyItems[i]
+			const $dirtyItem = $(dirtyItem)
+			const itemURL = $dirtyItem.parents('.mpajax-content-wrapper').data('section-url')
+
+			// Return if dirty item isn't on this page
+			if( !$dirtyItem.length )
+				return false
+
+			// Load the content
+			$dirtyItem.load( itemURL + ' #content .cards ' + dirtyItem + ' > *',
+				function(responseText, textStatus, xhr) {
+
+					// Handle errors
+					if (xhr.readyState == 4 && textStatus == "error") {
+						return false;
+					}
+
+				}
+			)
+		}
+	}
+
+
+	/**
+	 *
 	 * @function snapbackCacheInit()
 	 * @description Initialises snapback_cache.js by highrisehq - https://github.com/highrisehq/snapback_cache
 	 * @since 1.0.0
@@ -513,6 +549,9 @@
 					prevNum: prevPageNum
 				}
 				return pageOffset;
+			},
+			refreshItems: function(dirtyItems) {
+				refreshDirtyItems(dirtyItems)
 			}
 		});
 
@@ -564,12 +603,16 @@
 	 */
 	function mpAjaxInfinite() {
 
-		snapbackCacheInit();
+		// Don't run anything unless body has .mpajax-init class
+		if( !$('body').hasClass('mpajax-init') )
+			return false;
 
 		$(document).on('ready', function() {
 
 			// Set up the page structure ready for loading content
 			setupPage('#content');
+
+			snapbackCacheInit();
 
 			if( !loadingCache ) {
 

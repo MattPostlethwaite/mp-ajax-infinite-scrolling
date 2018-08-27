@@ -9,26 +9,6 @@
 	],
 "creatorBuild": "26680",
 "files": {
-	"\/assets\/css\/mpajax-styling-min.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/assets\/css\/mpajax-styling-min-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/assets\/css\/mpajax-styling.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/assets\/css\/mpajax-styling-min.css",
-		"oF": 0,
-		"oS": 3
-		},
 	"\/assets\/js\/mpajax-infinite-min.js": {
 		"ft": 64,
 		"ma": 0,
@@ -56,11 +36,28 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"\/assets\/js\/snapback_cache.js": {
+	"\/assets\/js\/snapback_cache-min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 1,
+		"oA": 0,
+		"oAP": "\/assets\/js\/snapback_cache-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/assets\/js\/snapback_cache-min.js.map": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/assets\/js\/snapback_cache-min.js.map",
+		"oF": 0
+		},
+	"\/assets\/js\/snapback_cache.js": {
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 0,
 		"oAP": "\/assets\/js\/snapback_cache-min.js",
 		"oF": 0,
 		"sC": 3,
@@ -77,14 +74,6 @@
 "hooks": [
 	],
 "manualImportLinks": {
-	"\/assets\/js\/mpajax-infinite.js": [
-		{
-			"followForSyntaxChecking": 0,
-			"linkedFileAbbreviatedPath": "\/assets\/js\/snapback_cache.js",
-			"position": 0,
-			"type": 0
-			}
-		]
 	},
 "projectAttributes": {
 	"creationDate": 549606621,
@@ -1489,7 +1478,7 @@
 	"externalServerAddress": "http:\/\/localhost:8888",
 	"gitIgnoreBuildFolder": 1,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "mpajax, jQuery",
+	"jsCheckerReservedNamesString": "mpajax",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,

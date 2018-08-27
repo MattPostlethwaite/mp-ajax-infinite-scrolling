@@ -7,24 +7,45 @@
  */
 
 
+// ==========================================================
+// Function mptheme_user_logged_in_body_class()
+//
+// Adds logged in/out class to the body_class
+// ==========================================================
+function mpajax_add_body_class( $classes ) {
+
+	if( is_archive() || is_home() || is_page_template( 'page-templates/page-collections.php' ) )
+		$classes[] = 'mpajax-init';
+
+	return $classes;
+}
+add_filter( 'body_class', 'mpajax_add_body_class', 99 );
+
 /*
- * Function mpajax_alp_init()
+ * Function mpajax_init()
  * Initialization. Add our script accosiated with load-posts.php if needed on this page.
  */
-function mpajax_alp_init() {
+function mpajax_init() {
 	global $wp_query;
 
-	// echo '<pre>'; var_dump($wp_query) ;echo '</pre>';
+	// if( is_archive() || is_home() || is_page_template( 'page-templates/page-collections.php' ) ) {
 
-	if( is_archive() || is_home() || is_page_template( 'page-templates/page-collections.php' ) ) {
+		// Enqueue SnapBackCache script
+		wp_enqueue_script(
+			'mpajax-snapbackcache',
+			plugin_dir_url( __FILE__ ) . 'assets/js/snapback_cache.js',
+			array('jquery'),
+			'1.0',
+			true
+		);
 
-		// Queue JS and CSS
+		// Register main mpajax script
 		wp_register_script(
-		'mpajax-load-posts',
-		plugin_dir_url( __FILE__ ) . 'assets/js/mpajax-infinite-min.js',
-		array('jquery'),
-		'1.0',
-		true
+			'mpajax-infinite',
+			plugin_dir_url( __FILE__ ) . 'assets/js/mpajax-infinite-min.js',
+			array('jquery', 'mpajax-snapbackcache'),
+			'1.0',
+			true
 		);
 
 
@@ -36,7 +57,7 @@ function mpajax_alp_init() {
 
 		// Add some parameters for the JS.
 		wp_localize_script(
-			'mpajax-load-posts',
+			'mpajax-infinite',
 			'mpajax',
 			array(
 				'startPage' => $paged,
@@ -46,9 +67,9 @@ function mpajax_alp_init() {
 			)
 		);
 
-		wp_enqueue_script( 'mpajax-load-posts' );
+		wp_enqueue_script( 'mpajax-infinite' );
 
-	}
+	// }
 }
 
-add_action('template_redirect', 'mpajax_alp_init');
+add_action('template_redirect', 'mpajax_init');
